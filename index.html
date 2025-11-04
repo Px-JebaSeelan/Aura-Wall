@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AuraWall - AI Wallpaper Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --star-small-size: 1px;
+        --star-medium-size: 2px;
+        --star-large-size: 3px;
+        --star-small-shadows: 700;
+        --star-medium-shadows: 200;
+        --star-large-shadows: 100;
+        --star-small-duration: 50s;
+        --star-medium-duration: 100s;
+        --star-large-duration: 150s;
+        --viewport-size: 2000;
+      }
+
+      html {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        overscroll-behavior-y: none;
+        background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+      }
+      
+      #root {
+        position: relative;
+        z-index: 2;
+      }
+
+      @keyframes animStar {
+        from {
+          transform: translateY(0px);
+        }
+        to {
+          transform: translateY(-2000px);
+        }
+      }
+      
+      @keyframes twinkle {
+        0%   { opacity: 0.3; }
+        50%  { opacity: 1; }
+        100% { opacity: 0.3; }
+      }
+
+      .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 1px;
+        background: transparent;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        z-index: 1;
+      }
+      
+      .stars-dust {
+        width: 1px;
+        height: 1px;
+      }
+      
+      .stars-medium {
+        width: 2px;
+        height: 2px;
+      }
+      
+      .stars-large {
+        width: 3px;
+        height: 3px;
+      }
+      
+      /* Generated star shadows */
+      .stars-dust {
+        animation: animStar 30s linear infinite, twinkle 3s linear infinite;
+        box-shadow: 159px 1650px #FFF, 1550px 105px #FFF, 1969px 1199px #FFF, 1726px 1650px #FFF, 1319px 584px #FFF, 755px 1272px #FFF, 107px 1118px #FFF, 1109px 403px #FFF, 547px 1342px #FFF, 1378px 1239px #FFF, 1941px 1850px #FFF, 62px 1316px #FFF, 116px 1618px #FFF, 775px 1658px #FFF, 1856px 1182px #FFF, 1618px 748px #FFF, 1269px 1502px #FFF, 1004px 587px #FFF, 1105px 446px #FFF, 960px 1018px #FFF, 1188px 1778px #FFF, 762px 1625px #FFF, 1799px 1195px #FFF, 1059px 109px #FFF, 1284px 174px #FFF, 1391px 1957px #FFF, 1690px 147px #FFF, 115px 1968px #FFF, 1718px 1970px #FFF, 1974px 1032px #FFF, 754px 1582px #FFF, 1935px 1928px #FFF, 1652px 1899px #FFF, 1226px 1805px #FFF, 1823px 1999px #FFF, 1054px 1225px #FFF, 1861px 1989px #FFF, 1245px 376px #FFF, 321px 1612px #FFF, 342px 792px #FFF, 1103px 1289px #FFF, 1326px 839px #FFF, 715px 1559px #FFF, 1713px 406px #FFF, 1403px 198px #FFF, 310px 1899px #FFF, 1530px 1308px #FFF, 1324px 311px #FFF, 1461px 375px #FFF, 1004px 1933px #FFF, 888px 1422px #FFF, 477px 621px #FFF, 1981px 164px #FFF, 756px 1580px #FFF, 1515px 697px #FFF, 1883px 1876px #FFF, 1377px 887px #FFF, 1381px 1850px #FFF, 908px 65px #FFF, 1956px 1279px #FFF, 1053px 404px #FFF, 1475px 827px #FFF, 1081px 1157px #FFF, 1845px 1848px #FFF, 39px 783px #FFF, 1847px 1107px #FFF, 1285px 1459px #FFF, 1279px 695px #FFF, 1324px 748px #FFF, 1612px 1856px #FFF, 1819px 167px #FFF, 137px 461px #FFF, 396px 1604px #FFF, 1238px 1623px #FFF, 1479px 1526px #FFF, 1045px 1051px #FFF, 1667px 418px #FFF, 1968px 1058px #FFF, 1898px 973px #FFF, 744px 1222px #FFF, 1908px 1536px #FFF, 1716px 1111px #FFF, 145px 819px #FFF, 966px 1826px #FFF, 1599px 699px #FFF, 1515px 567px #FFF, 1358px 971px #FFF, 829px 1373px #FFF, 1558px 1916px #FFF, 1147px 1007px #FFF, 1500px 96px #FFF, 856px 1690px #FFF, 160px 1391px #FFF, 1655px 1332px #FFF, 501px 867px #FFF, 1120px 881px #FFF, 1572px 123px #FFF, 1290px 1827px #FFF, 1069px 929px #FFF, 1709px 1163px #FFF, 532px 1891px #FFF, 1341px 161px #FFF, 1195px 1082px #FFF, 574px 1297px #FFF, 485px 1259px #FFF, 1692px 1353px #FFF, 1898px 1654px #FFF, 1716px 424px #FFF, 169px 1339px #FFF, 1993px 1827px #FFF, 116px 1754px #FFF, 1782px 556px #FFF, 1719px 728px #FFF, 423px 1980px #FFF, 39px 871px #FFF, 1913px 470px #FFF, 893px 66px #FFF, 1039px 731px #FFF, 545px 1746px #FFF, 1859px 1042px #FFF, 1294px 572px #FFF, 1396px 1396px #FFF, 762px 1419px #FFF, 1358px 1658px #FFF, 509px 1998px #FFF, 1121px 1404px #FFF, 42px 199px #FFF, 1291px 720px #FFF, 1735px 1253px #FFF, 1914px 1152px #FFF, 1492px 1435px #FFF, 313px 1488px #FFF, 1338px 1499px #FFF, 1528px 1869px #FFF, 597px 1198px #FFF, 1664px 388px #FFF, 1754px 137px #FFF, 1059px 832px #FFF, 804px 1944px #FFF, 1218px 486px #FFF, 1215px 1859px #FFF, 1686px 656px #FFF, 1018px 1349px #FFF, 149px 1515px #FFF, 1324px 1883px #FFF, 440px 1667px #FFF, 1205px 1665px #FFF, 1419px 1353px #FFF, 84px 1212px #FFF, 1912px 1956px #FFF, 1877px 590px #FFF, 1500px 107px #FFF, 125px 233px #FFF, 936px 1146px #FFF, 1352px 1667px #FFF, 1932px 1157px #FFF, 672px 1968px #FFF, 1613px 45px #FFF, 1215px 69px #FFF, 1284px 577px #FFF, 1791px 956px #FFF, 1530px 1681px #FFF, 1942px 1238px #FFF, 706px 1300px #FFF, 856px 1600px #FFF, 117px 1416px #FFF, 1007px 1484px #FFF, 1109px 1461px #FFF, 303px 1656px #FFF, 1568px 1774px #FFF, 381px 1914px #FFF, 1172px 1334px #FFF, 1765px 369px #FFF, 179px 1928px #FFF, 866px 973px #FFF, 1194px 167px #FFF, 1358px 1319px #FFF, 1391px 134px #FFF, 1199px 1925px #FFF, 1785px 1756px #FFF, 1279px 1283px #FFF, 497px 1251px #FFF, 1060px 1789px #FFF, 1993px 1832px #FFF, 1302px 55px #FFF, 1338px 198px #FFF, 1630px 586px #FFF, 1686px 376px #FFF, 1111px 400px #FFF, 1075px 187px #FFF, 1655px 1781px #FFF, 1688px 1362px #FFF, 1550px 796px #FFF, 1064px 347px #FFF, 1463px 1121px #FFF, 1118px 1373px #FFF, 1492px 760px #FFF, 1740px 1851px #FFF, 1928px 972px #FFF, 1898px 1445px #FFF, 824px 1870px #FFF, 1589px 1378px #FFF, 1528px 573px #FFF, 1832px 1845px #FFF, 868px 747px #FFF, 1152px 1017px #FFF, 1968px 1056px #FFF, 1618px 1599px #FFF, 1659px 1319px #FFF, 119px 1205px #FFF, 1552px 1375px #FFF, 1584px 1740px #FFF, 1682px 1464px #FFF, 104px 93px #FFF, 321px 166px #FFF, 1432px 129px #FFF, 882px 1944px #FFF, 1930px 1356px #FFF, 936px 966px #FFF, 1085px 1238px #FFF, 1779px 1009px #FFF, 1383px 1948px #FFF, 626px 1916px #FFF, 1083px 1655px #FFF, 1731px 630px #FFF, 1109px 1247px #FFF, 1584px 986px #FFF, 1564px 859px #FFF, 642px 1182px #FFF, 1693px 369px #FFF, 1842px 1356px #FFF, 1485px 338px #FFF, 815px 1449px #FFF, 461px 1673px #FFF, 1909px 914px #FFF, 1063px 1297px #FFF, 1233px 932px #FFF, 1902px 55px #FFF, 240px 1155px #FFF, 1269px 925px #FFF, 706px 1622px #FFF, 1573px 1419px #FFF, 1945px 1133px #FFF, 1908px 1804px #FFF, 1341px 1969px #FFF, 1801px 1228px #FFF, 1256px 1196px #FFF, 1988px 1285px #FFF, 128px 1114px #FFF, 946px 1735px #FFF, 1994px 512px #FFF, 1199px 1165px #FFF, 546px 601px #FFF, 1016px 1297px #FFF, 477px 899px #FFF, 65px 1729px #FFF, 1554px 1242px #FFF, 1000px 1672px #FFF, 1832px 46px #FFF, 1053px 1900px #FFF, 497px 1818px #FFF, 1317px 891px #FFF, 1936px 728px #FFF, 1500px 1993px #FFF;
+      }
+
+      .stars {
+        animation: animStar 50s linear infinite, twinkle 7s ease-in-out infinite;
+        box-shadow: 532px 1470px #FFF, 1958px 1272px #FFF, 137px 1570px #FFF, 128px 1133px #FFF, 1851px 528px #FFF, 229px 129px #FFF, 1070px 14px #FFF, 1318px 271px #FFF, 1246px 1563px #FFF, 1374px 1752px #FFF, 938px 852px #FFF, 742px 767px #FFF, 1438px 833px #FFF, 107px 1195px #FFF, 867px 929px #FFF, 1316px 1494px #FFF, 1391px 1121px #FFF, 1358px 1869px #FFF, 1056px 1018px #FFF, 882px 1433px #FFF, 915px 1205px #FFF, 100px 381px #FFF, 1908px 1378px #FFF, 1098px 1341px #FFF, 32px 1904px #FFF, 626px 1292px #FFF, 546px 163px #FFF, 1099px 118px #FFF, 135px 1432px #FFF, 1913px 443px #FFF, 106px 1335px #FFF, 1530px 1083px #FFF, 1398px 195px #FFF, 286px 888px #FFF, 999px 1319px #FFF, 1557px 1282px #FFF, 1238px 103px #FFF, 1050px 111px #FFF, 1718px 1491px #FFF, 907px 105px #FFF;
+      }
+      
+      .stars-medium {
+        animation: animStar 100s linear infinite, twinkle 10s ease-in-out infinite;
+        box-shadow: 1957px 1381px #FFF, 1803px 45px #FFF, 1195px 653px #FFF, 1146px 1801px #FFF, 111px 184px #FFF, 1192px 1496px #FFF, 1138px 1279px #FFF, 545px 1445px #FFF, 115px 1855px #FFF, 532px 1088px #FFF, 1459px 1338px #FFF, 1344px 233px #FFF, 1933px 432px #FFF, 1143px 1878px #FFF, 182px 1536px #FFF, 1116px 1024px #FFF, 1399px 1903px #FFF, 739px 345px #FFF, 41px 1859px #FFF, 1162px 1684px #FFF;
+      }
+      
+      .stars-large {
+        animation: animStar 150s linear infinite, twinkle 15s ease-in-out infinite;
+        box-shadow: 379px 1584px #FFF, 140px 1833px #FFF, 1891px 906px #FFF, 1188px 1819px #FFF, 1119px 1146px #FFF, 1022px 1250px #FFF, 1152px 1155px #FFF, 1779px 1177px #FFF, 84px 174px #FFF, 104px 940px #FFF;
+      }
+
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.28.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0"
+  }
+}
+</script>
+</head>
+  <body class="text-gray-100">
+    <div class="stars stars-dust"></div>
+    <div class="stars"></div>
+    <div class="stars stars-medium"></div>
+    <div class="stars stars-large"></div>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
